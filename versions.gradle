@@ -27,7 +27,7 @@ def versions = [:]
 versions.arch_core = "1.1.1"
 versions.room = "1.1.1"
 versions.lifecycle = "1.1.1"
-versions.support = "27.1.1"
+versions.support = "28.0.0"
 versions.dagger = "2.15"
 versions.junit = "4.12"
 versions.espresso = "3.0.2"
@@ -61,6 +61,7 @@ versions.strom_remote = "0.0.11"
 versions.right_mesh = "0.10.0"
 versions.rm_plugin = '1.8.4'
 versions.circularimage = "2.2.0"
+versions.right_mesh_int_debug = "AZIMW3-SNAPSHOT"
 ext.versions = versions
 
 def deps = [:]
@@ -158,12 +159,13 @@ deps.timber = "com.jakewharton.timber:timber:$versions.timber"
 deps.glide = "com.github.bumptech.glide:glide:$versions.glide"
 deps.rxlint_checker = "nl.littlerobots.rxlint:rxlint:$versions.rx_lint"
 deps.right_mesh = "io.left.rightmesh:lib-rightmesh-android:$versions.right_mesh"
+deps.right_mesh_int_debug = "io.left.rightmesh:lib-rightmesh-android-intDebug:$versions.right_mesh_int_debug"
 ext.deps = deps
 
 def build_versions = [:]
 build_versions.min_sdk = 16
-build_versions.target_sdk = 27
-build_versions.build_tools = "27.0.3"
+build_versions.target_sdk = 28
+build_versions.build_tools = "28.0.3"
 ext.build_versions = build_versions
 
 def work = [:]

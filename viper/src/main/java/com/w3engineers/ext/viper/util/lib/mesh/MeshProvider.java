@@ -17,6 +17,10 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import io.left.rightmesh.android.AndroidMeshManager;
+import io.left.rightmesh.event.DataDeliveredEvent;
+import io.left.rightmesh.event.DataReceivedEvent;
+import io.left.rightmesh.event.PeerChangedEvent;
+import io.left.rightmesh.event.RightMeshEvent;
 import io.left.rightmesh.id.MeshId;
 import io.left.rightmesh.mesh.MeshManager;
 import io.left.rightmesh.mesh.MeshStateListener;
@@ -232,13 +236,13 @@ public class MeshProvider implements MeshStateListener {
             // Subscribes handlers to receive events from the mesh.
 
             mCompositeDisposable.add(mAndroidMeshManager.on(MeshManager.PEER_CHANGED,
-                    (Consumer) o -> handlePeerChanged((MeshManager.RightMeshEvent) o)));
+                    (Consumer) o -> handlePeerChanged((RightMeshEvent) o)));
 
             mCompositeDisposable.add(mAndroidMeshManager.on(MeshManager.DATA_RECEIVED,
-                    (Consumer) o -> handleDataReceived((MeshManager.RightMeshEvent) o)));
+                    (Consumer) o -> handleDataReceived((RightMeshEvent) o)));
 
             mCompositeDisposable.add(mAndroidMeshManager.on(MeshManager.DATA_DELIVERED,
-                    (Consumer) o -> handleDataDelivery((MeshManager.RightMeshEvent) o)));
+                    (Consumer) o -> handleDataDelivery((RightMeshEvent) o)));
 
             if(mIMeshCallBack != null) {
 
@@ -259,11 +263,11 @@ public class MeshProvider implements MeshStateListener {
 
     }
 
-    private void handlePeerChanged(MeshManager.RightMeshEvent e) {
+    private void handlePeerChanged(RightMeshEvent e) {
 
         if(e != null) {
 
-            MeshManager.PeerChangedEvent event = (MeshManager.PeerChangedEvent) e;
+            PeerChangedEvent event = (PeerChangedEvent) e;
 
             // Ignore ourselves.
             if (event.peerUuid.equals(mAndroidMeshManager.getUuid())) {
@@ -302,9 +306,9 @@ public class MeshProvider implements MeshStateListener {
 
     }
 
-    private void handleDataReceived(MeshManager.RightMeshEvent e) {
+    private void handleDataReceived(RightMeshEvent e) {
 
-        MeshManager.DataReceivedEvent dataReceivedEvent = (MeshManager.DataReceivedEvent) e;
+        DataReceivedEvent dataReceivedEvent = (DataReceivedEvent) e;
         MeshData meshData = MeshData.setMeshData(dataReceivedEvent.data);
 
         if(meshData != null) {
@@ -341,20 +345,20 @@ public class MeshProvider implements MeshStateListener {
 
     }
 
-    private void handleDataDelivery(MeshManager.RightMeshEvent e) {
+    private void handleDataDelivery(RightMeshEvent e) {
 
-        MeshManager.DataDeliveredEvent dataDeliveredEvent = (MeshManager.DataDeliveredEvent) e;
+        DataDeliveredEvent dataDeliveredEvent = (DataDeliveredEvent) e;
 
         if(dataDeliveredEvent != null) {
-            Timber.d("Ack received for::%d", dataDeliveredEvent.data_id);
+            Timber.d("Ack received for::%d", dataDeliveredEvent.dataId);
 
-            if(!mDeliveryIdSetPi.remove(dataDeliveredEvent.data_id)) {
+            if(!mDeliveryIdSetPi.remove(dataDeliveredEvent.dataId)) {
 
-                if(mDeliveryIdSetMessage.remove(dataDeliveredEvent.data_id)) {
+                if(mDeliveryIdSetMessage.remove(dataDeliveredEvent.dataId)) {
                     //Propagate event to higher level only if event is not profile info related event
                     //and available in message set
 
-                    MeshAcknowledgement meshAcknowledgement = new MeshAcknowledgement(dataDeliveredEvent.data_id);
+                    MeshAcknowledgement meshAcknowledgement = new MeshAcknowledgement(dataDeliveredEvent.dataId);
                     meshAcknowledgement.mMeshPeer = new MeshPeer(dataDeliveredEvent.peerUuid.toString());
                     mIMeshCallBack.onMesh(meshAcknowledgement);
                 }

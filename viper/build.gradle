@@ -30,6 +30,7 @@ repositories {
         url "https://dl.bintray.com/ethereum/maven/"
     }
     mavenCentral()
+    mavenLocal()
     jcenter()
 
     maven {
@@ -123,7 +124,8 @@ dependencies {
 
 
     //RightMesh
-    implementation deps.right_mesh
+    implementation deps.right_mesh_int_debug
+//    implementation deps.right_mesh
 
     //Image Picker, Glide
     implementation deps.glide
