@@ -119,6 +119,7 @@ dependencies {
     implementation 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
     // shimmer effect
     implementation 'com.facebook.shimmer:shimmer:0.3.0'
+    androidTestImplementation group: 'com.github.javafaker', name: 'javafaker', version: '0.16'
 
 //    api project(':viper')
 }

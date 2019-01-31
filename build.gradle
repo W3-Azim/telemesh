@@ -35,6 +35,11 @@ subprojects {
 
                 details.useVersion versions.lifecycle
 
+            } else if(details.requested.group == 'org.apache.commons' &&
+                    details.requested.name == 'commons-lang3') {
+
+                details.useVersion '3.8.1'
+
             }
         }
     }
