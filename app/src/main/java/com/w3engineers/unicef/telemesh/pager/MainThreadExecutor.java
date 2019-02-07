@@ -23,6 +23,10 @@ public class MainThreadExecutor implements Executor {
      */
     private final Handler handler = new Handler(Looper.getMainLooper());
 
+    /**
+     * code comment
+     * @param r
+     */
     @Override
     public void execute(Runnable r) {
         handler.post(r);
