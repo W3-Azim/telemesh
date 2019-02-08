@@ -30,4 +30,9 @@ public class MeshConfig {
     public String mSuperPeer;
     public int mPort;
 
+    @Override
+    public String toString() {
+        return new StringBuilder().append("mSsid::").append(mSsid).append("::mSuperPeer::").
+                append(mSuperPeer).append("::mPort::").append(mPort).toString();
+    }
 }

@@ -91,8 +91,7 @@ public class BaseRmService extends Service implements IMeshCallBack {
         meshConfig.mSsid = getString(R.string.rm_ssid);
         meshConfig.mSuperPeer = getString(R.string.rm_super_peer);
         meshConfig.mPort = getResources().getInteger(R.integer.rm_port_number);
-        Timber.d("Local Remote Service initiating with port number:%d ssid:%s", meshConfig.mPort,
-                meshConfig.mSsid);
+        Timber.d("Local Remote Service initiating with:%s", meshConfig);
 
         mMeshProvider = MeshProvider.getInstance();
         mMeshProvider.setMeshConfig(meshConfig);
